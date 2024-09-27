@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input{
+            width: 300px;
+            padding: 10px;
+        }
+        button{
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #products{
+            display: grid;
+            grid-template-columns:  repeat(3, 1fr);
+            gap:30px;
+            margin-top: 30px;
+        }
+        #products div{
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body onload = 'Searchproduct()'>
+    <input type="text" placeholder="search...." id="search">
+    <button onclick = "searchProduct()">Search</button>
+    <div id="products"></div>
+</body>
+<script src="./timkiem.js" >
+
+</script>
+</html>
