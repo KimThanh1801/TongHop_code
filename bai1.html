@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Product</title>
+    <style type="text/css">
+        body {
+            width: 50%;
+            margin: 0;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-spacing: 0;
+            border: 1px solid #bbb;
+        }
+
+        .frm {
+            border: 3px solid red;
+            background: #ccc;
+            width: 100%;
+        }
+
+        .form-item {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .input {
+            width: 100%;
+        }
+
+        #tbl tr {
+            height: 27px;
+        }
+
+        #tbl tr th,
+        #tbl tr td {
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        #tbl tr:last-child td {
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>New Product</h1>
+        <form name="frm">
+            <div class="form-item">
+                <div class="item">
+                    <div class="lable">
+                        <label for="pname">Product Name:</label>
+                    </div>
+                    <div class="input">
+                        <input type="text" id="pname">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="lable">
+                        <label for="qty">Quantity:</label>
+                    </div>
+                    <div class="input">
+                        <input type="number" id="qty">
+                    </div>
+                </div>
+            </div>
+            <div class="form-item">
+                <div class="item">
+                    <div class="lable">
+                        <label for="up">Unit Price:</label>
+                    </div>
+                    <div class="input">
+                        <input type="number" id="up">
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="lable">
+                        <label for="dc">Discount (%):</label>
+                    </div>
+                    <div class="input">
+                        <input type="number" id="dc">
+                    </div>
+                </div>
+            </div>
+            <!-- </div> -->
+            <button type="button" onclick="sell()">Sell</button>
+            <button onclick="cancel()">Cancel</button>
+        </form>
+    <table id="tbl">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Discount</th>
+                <th>Subtotal</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<script type="text/javascript">
+var id = 0;
+function sell() {
+    id++;
+    var pname = document.getElementById('pname').value;
+    var qty = parseInt(document.getElementById('qty').value);
+    var price = parseInt(document.getElementById('up').value);
+    var dc = parseInt(document.getElementById('dc').value);
+    var sub = qty * price * (1 - dc / 100);
+    var row = "<tr>";
+    row += "<td>" + id + "</td>";
+    row += "<td>" + pname + "</td>";
+    row += "<td>" + qty + "</td>";
+    row += "<td>" + price + "$</td>";
+    row += "<td>" + dc + "%</td>";
+    row += "<td>" + sub + "$</td>";
+    row += "</tr>";
+    document.getElementById("tbl").getElementsByTagName("tbody")[0].innerHTML += row;
+    document.getElementById('pname').value = '';
+    document.getElementById('qty').value = '';
+    document.getElementById('up').value = '';
+    document.getElementById('dc').value = '';
+}
+function cancel() {
+    document.getElementById('pname').value = '';
+    document.getElementById('qty').value = '';
+    document.getElementById('up').value = '';
+    document.getElementById('dc').value = '';
+}
+</script>
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone</title>
+    <link rel="stylesheet" href="./iphone.css">
+</head>
+
+<body>
+    <section class="product">
+        <div class="container">
+            <div class="product-items">
+
+                <div class="product-item">
+                    <img src="https://shopdunk.com/images/thumbs/0026540_iphone-11-64gb-chinh-hang-cu-dep.png" alt="Iphone 11">
+                    <div class="product-item-text">
+                        <p><span>320.000<sup>đ</sup></span></p>
+                        <h1 style="font-weight:bold; font-size: 18px;">Iphone 11</h1>
+                    </div>
+                    <button>ADD CART</button>
+                </div>
+
+                <div class="product-item">
+                    <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2020/09/anh-render-iPhone12-1.jpg" alt="Iphone 12">
+                    <div class="product-item-text">
+                        <p><span>420.000<sup>đ</sup></span></p>
+                        <h1 style="font-weight:bold; font-size: 18px;">Iphone 12</h1>
+                    </div>
+                    <button>ADD CART</button>
+                </div>
+
+                <div class="product-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC7C3C9jBJwt2oz55B693reNgdraa2XU6_n2TfxYmgkcjrZtpCh16fdygg3uE_n7OXq8A&usqp=CAU" alt="Iphone 13">
+                    <div class="product-item-text">
+                        <p><span>520.000<sup>đ</sup></span></p>
+                        <h1 style="font-weight:bold; font-size: 18px;">Iphone 13</h1>
+                    </div>
+                    <button>ADD CART</button>
+                </div>
+
+                <div class="product-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx22Gql783OubH3kkUi9BsL8Oz4TRWKcUeVQ&s" alt="Iphone 14">
+                    <div class="product-item-text">
+                        <p><span>620.000<sup>đ</sup></span></p>
+                        <h1 style="font-weight:bold; font-size: 18px;">Iphone 14</h1>
+                    </div>
+                    <button>ADD CART</button>
+                </div>
+
+                <div class="product-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQno9CEaoaYGKSQyBjWCIstEwd0hxqJmNKN5A&s" alt="Iphone 15">
+                    <div class="product-item-text">
+                        <p><span>720.000<sup>đ</sup></span></p>
+                        <h1 style="font-weight:bold; font-size: 18px;">Iphone 15</h1>
+                    </div>
+                    <button>ADD CART</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="cart">
+        <h2>Cart</h2>
+        <form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Select</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div style="text-align: right;" class="price-total">
+                <p style="font-weight: bold;">Total:<span>0<sup>đ</sup></span></p>
+            </div>
+        </form>
+    </section>
+
+    <script>
+        // Bắt sự kiện khi nhấn vào nút "ADD CART"
+        const buttons = document.querySelectorAll("button");
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function (event) {
+                const btn = event.target;
+                const product = btn.parentElement;
+                const productImg = product.querySelector("img").src;
+                const productName = product.querySelector("h1").innerText;
+                const productPrice = product.querySelector("span").innerText;
+
+                addCart(productPrice, productImg, productName);
+            });
+        });
+
+        // Thêm sản phẩm vào giỏ hàng
+        function addCart(productPrice, productImg, productName) {
+            const cartItem = document.querySelectorAll("tbody tr");
+            for (let i = 0; i < cartItem.length; i++) {
+                const productNameT = document.querySelectorAll('.productName');
+                if (productNameT[i].innerHTML === productName) {
+                    alert("Product is already in the cart");
+                    return;
+                }
+            }
+
+            const newRow = document.createElement("tr");
+            const rowContent = `
+                <tr>
+                    <td style="display: flex; align-items: center;">
+                        <img style="width: 70px" src="${productImg}" alt="">
+                        <span class="productName">${productName}</span>
+                    </td>
+                    <td><p><span class="price">${productPrice}<sup>đ</sup></span></p></td>
+                    <td><input type="number" value="1" min="1"></td>
+                    <td style="cursor: pointer"><span class="productDelete">Delete</span></td>
+                </tr>
+            `;
+            newRow.innerHTML = rowContent;
+            const CartTbody = document.querySelector("tbody");
+            CartTbody.append(newRow);
+
+            cartTotal(); // Cập nhật tổng tiền
+            deleteCart(); // Thêm sự kiện xóa cho sản phẩm
+        }
+
+        // Tính tổng tiền các sản phẩm
+        function cartTotal() {
+            const cartItems = document.querySelectorAll("tbody tr");
+            let total = 0;
+
+            cartItems.forEach(function (item) {
+                const quantity = item.querySelector("input").value;
+                let productPrice = item.querySelector(".price").innerHTML;
+                productPrice = parseFloat(productPrice);
+
+                const totalPerProduct = quantity * productPrice * 1000;
+                total += totalPerProduct;
+            });
+
+            const totalFormatted = total.toLocaleString('de-DE');
+            const cartTotalElement = document.querySelector(".price-total span");
+            cartTotalElement.innerHTML = totalFormatted;
+        }
+
+        // Xóa sản phẩm khỏi giỏ hàng
+        function deleteCart() {
+            const cartItems = document.querySelectorAll("tbody tr");
+            cartItems.forEach(function (item, index) {
+                const deleteButton = item.querySelector(".productDelete");
+                deleteButton.addEventListener("click", function () {
+                    item.remove(); // Xóa sản phẩm
+                    cartTotal(); // Cập nhật tổng tiền sau khi xóa
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

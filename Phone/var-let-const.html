@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /// Ví dụ về VAR
+        //Sự khác nhau của var, let, const:
+        //- var: có thể gọi console.log trước khi chưa khai báo => undefined
+        //-let: không thê gọi console.log khi chưa khai báo => sẽ báo lỗi
+        function exampleVar() {
+            // console.log(a); // undefined (hoisted nhưng chưa khởi tạo giá trị)
+            // var a = 5;
+            // console.log(a); // 5
+
+            if (true) {
+                // console.log(b); //undefined
+                var b = 10;
+                // console.log(b); // 10
+                b = 40;
+                console.log(b);
+            }
+            exampleVar();
+        }
+
+        // VÍ DỤ VỀ LET
+        function exampleLet() {
+            //----------- // console.log(a);// báo lỗi 
+            let a = 5;
+            // console.log(a);
+            a= 20;
+            // console.log(a);
+        }
+        exampleLet()
+        function exampleLet() {
+            if (true) {
+                let b = 10;
+                // console.log(b); // 10
+            }
+            //----------- // console.log(b); // Lỗi, b chỉ tồn tại trong block scope của if
+        }
+        exampleLet();
+    </script>
+</body>
+
+</html>
